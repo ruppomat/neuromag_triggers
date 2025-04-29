@@ -2,6 +2,8 @@
 
 🧠 A lightweight Python module to extract **digital triggers** from **Neuromag analog STI lines** (STI001–STI006), accounting for jitter and hardware timing constraints.
 
+---
+
 ## 🚀 What it does
 
 - Converts 6 analog STI channels into **digital binary codes**
@@ -15,13 +17,18 @@ Ideal for Neuromag 122 MEG systems using hardware-based binary-coded triggers.
 
 ## 📦 Installation
 
-Clone the repository and use it as a local module:
+Clone the repository and install it in **editable mode** (modern `src/` layout):
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/neuromag_triggers.git
 cd neuromag_triggers
-pip install -e .
+uv pip install -e .
 ```
+
+> If you don't have `uv`, you can still use regular pip:
+> ```bash
+> pip install -e .
+> ```
 
 ---
 
@@ -44,29 +51,29 @@ print(trigger_df.head())
 
 ## 📘 Output
 
-The function returns a `pandas.DataFrame`:
+The function returns a `pandas.DataFrame` like this:
 
 | sample_index | trigger_value |
-|--------------|---------------|
+|:------------:|:-------------:|
 | 12345        | 5             |
 | 18765        | 7             |
 | ...          | ...           |
 
 Each value represents the **binary combination** detected from rising edges:
-- STI001 → bit 0 → `1`
-- STI002 → bit 1 → `2`
-- STI003 → bit 2 → `4`
-- … up to STI006 → `32`
+- STI001 → bit 0 → value `1`
+- STI002 → bit 1 → value `2`
+- STI003 → bit 2 → value `4`
+- … up to STI006 → value `32`
 
 ---
 
 ## 🛠 Parameters
 
-| Argument         | Type    | Default | Description |
-|------------------|---------|---------|-------------|
-| `raw`            | `mne.io.Raw` | —     | Raw data object with STI channels |
-| `threshold`      | `float` | `0.5`   | Threshold to binarize analog voltages |
-| `refractory_ms`  | `int`   | `50`    | Time (in ms) to suppress triggers after each event |
+| Argument         | Type          | Default | Description |
+|------------------|---------------|---------|-------------|
+| `raw`            | `mne.io.Raw`   | —       | Raw MEG data object with STI channels |
+| `threshold`      | `float`        | `0.5`   | Threshold to binarize analog voltages |
+| `refractory_ms`  | `int`          | `50`    | Time (in ms) to suppress triggers after each event |
 
 ---
 
@@ -74,23 +81,24 @@ Each value represents the **binary combination** detected from rising edges:
 
 ```text
 neuromag_triggers/
-├── neuromag_triggers/
-│   ├── __init__.py
-│   └── core.py          # Main logic
-├── tests/               # Optional: unit tests
+├── LICENSE
 ├── README.md
 ├── pyproject.toml
-└── LICENSE
+├── src/
+│   └── neuromag_triggers/
+│       ├── __init__.py
+│       └── core.py          # Main trigger extraction logic
+└── tests/                   # (optional) unit tests
 ```
 
 ---
 
 ## 📄 License
 
-MIT License — use it freely.
+MIT License — feel free to use, modify, and share.
 
 ---
 
 ## ✨ Acknowledgments
 
-Created by [André Rupp](https://github.com/YOUR_USERNAME) to support robust MEG experiments on Neuromag systems.
+Created by [André Rupp](https://github.com/YOUR_USERNAME) to support robust MEG experiments using Neuromag systems.
